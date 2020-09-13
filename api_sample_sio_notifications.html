@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<script src="socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script>
+function createConnection(namespace) {
+	return io.connect('//localhost' + namespace, {transports: ['websocket']});
+}
+
+function Notifications() {
+	this.ws = createConnection('/notifications');
+	
+	this.ws.on('connect', function(data) {
+		this.emit('authenticate', {
+			'token': 'TODO'
+		});
+	});
+	
+	this.ws.on('dataUpdate', function(data) {
+		console.log(data);
+	})
+}
+
+var notifs = new Notifications();
+
+</script>
+</head>
+<body>
+</body>
+</html>
